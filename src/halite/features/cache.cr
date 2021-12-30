@@ -112,7 +112,8 @@ module Halite
           if metadata = find_metadata(path)
             status_code = metadata["status_code"].as_i
             metadata["headers"].as_h.each do |name, value|
-              if value.is_a?(Array)
+              case value.as_s?
+              when nil
                 headers[name] = value.as_a.join(", ")
               else
                 headers[name] = value.as_s
